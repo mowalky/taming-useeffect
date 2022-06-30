@@ -8,10 +8,12 @@ export const useFetch = (options: fetchOptions) => {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    fetch(options.url)
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+    if (options.url) {
+      fetch(options.url)
+        .then((res) => res.json())
+        .then((data) => setData(data));
+    }
+  }, [options.url]);
 
   return { data };
 };
