@@ -1,25 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export const useFetch = (options: object) => {
+export type fetchOptions = {
+  url: string;
+};
+
+export const useFetch = (options: fetchOptions) => {
   const [data, setData] = useState<any>(null);
-  //   const [loading, setLoading] = useState(true);
-  //   const [error, setError] = useState<any>();
 
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const response = await fetch(url);
-  //       const json = await response.json();
-  //       setData(json);
-  //     } catch (error) {
-  //       setError(error);
-  //     }
-  //     setLoading(false);
-  //   };
-
-  //   React.useEffect(() => {
-  //     fetchData();
-  //   }, [url]);
+  useEffect(() => {
+    fetch(options.url)
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
 
   return { data };
 };
